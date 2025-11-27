@@ -1,0 +1,113 @@
+import { Movie, Category } from '../types'
+
+export const mockMovies: Movie[] = [
+  {
+    id: '1',
+    title: 'The Dark Knight',
+    description: 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
+    poster: 'https://via.placeholder.com/300x450/222222/FFFFFF?text=The+Dark+Knight',
+    backdrop: 'https://via.placeholder.com/1920x1080/222222/FFFFFF?text=Backdrop',
+    rating: 9.0,
+    year: 2008,
+    duration: '152 min',
+    genres: ['Action', 'Crime', 'Drama'],
+    cast: ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart'],
+    director: 'Christopher Nolan',
+  },
+  {
+    id: '2',
+    title: 'Inception',
+    description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.',
+    poster: 'https://via.placeholder.com/300x450/222222/FFFFFF?text=Inception',
+    backdrop: 'https://via.placeholder.com/1920x1080/222222/FFFFFF?text=Backdrop',
+    rating: 8.8,
+    year: 2010,
+    duration: '148 min',
+    genres: ['Action', 'Sci-Fi', 'Thriller'],
+    cast: ['Leonardo DiCaprio', 'Marion Cotillard', 'Tom Hardy'],
+    director: 'Christopher Nolan',
+  },
+  {
+    id: '3',
+    title: 'Interstellar',
+    description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.',
+    poster: 'https://via.placeholder.com/300x450/222222/FFFFFF?text=Interstellar',
+    backdrop: 'https://via.placeholder.com/1920x1080/222222/FFFFFF?text=Backdrop',
+    rating: 8.6,
+    year: 2014,
+    duration: '169 min',
+    genres: ['Adventure', 'Drama', 'Sci-Fi'],
+    cast: ['Matthew McConaughey', 'Anne Hathaway', 'Jessica Chastain'],
+    director: 'Christopher Nolan',
+  },
+  {
+    id: '4',
+    title: 'The Matrix',
+    description: 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.',
+    poster: 'https://via.placeholder.com/300x450/222222/FFFFFF?text=The+Matrix',
+    backdrop: 'https://via.placeholder.com/1920x1080/222222/FFFFFF?text=Backdrop',
+    rating: 8.7,
+    year: 1999,
+    duration: '136 min',
+    genres: ['Action', 'Sci-Fi'],
+    cast: ['Keanu Reeves', 'Laurence Fishburne', 'Carrie-Anne Moss'],
+    director: 'The Wachowskis',
+  },
+  {
+    id: '5',
+    title: 'Pulp Fiction',
+    description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+    poster: 'https://via.placeholder.com/300x450/222222/FFFFFF?text=Pulp+Fiction',
+    backdrop: 'https://via.placeholder.com/1920x1080/222222/FFFFFF?text=Backdrop',
+    rating: 8.9,
+    year: 1994,
+    duration: '154 min',
+    genres: ['Crime', 'Drama'],
+    cast: ['John Travolta', 'Samuel L. Jackson', 'Uma Thurman'],
+    director: 'Quentin Tarantino',
+  },
+  {
+    id: '6',
+    title: 'Fight Club',
+    description: 'An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.',
+    poster: 'https://via.placeholder.com/300x450/222222/FFFFFF?text=Fight+Club',
+    backdrop: 'https://via.placeholder.com/1920x1080/222222/FFFFFF?text=Backdrop',
+    rating: 8.8,
+    year: 1999,
+    duration: '139 min',
+    genres: ['Drama'],
+    cast: ['Brad Pitt', 'Edward Norton', 'Helena Bonham Carter'],
+    director: 'David Fincher',
+  },
+]
+
+export const mockCategories: Category[] = [
+  {
+    id: 'trending',
+    name: 'Trending Now',
+    movies: mockMovies.slice(0, 4),
+  },
+  {
+    id: 'popular',
+    name: 'Popular on DarkCase',
+    movies: mockMovies.slice(1, 5),
+  },
+  {
+    id: 'action',
+    name: 'Action & Adventure',
+    movies: mockMovies.filter(m => m.genres.includes('Action')),
+  },
+  {
+    id: 'drama',
+    name: 'Drama',
+    movies: mockMovies.filter(m => m.genres.includes('Drama')),
+  },
+  {
+    id: 'scifi',
+    name: 'Sci-Fi',
+    movies: mockMovies.filter(m => m.genres.includes('Sci-Fi')),
+  },
+]
+
+export const mockContinueWatching = mockMovies.slice(0, 3)
+
