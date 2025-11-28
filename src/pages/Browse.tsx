@@ -23,8 +23,8 @@ export const Browse: React.FC = () => {
   const allGenres = Array.from(new Set(mockMovies.flatMap((m) => m.genres)))
   
   return (
-    <div className="pb-20 px-4">
-      <div className="mb-6 pt-4">
+    <div className="h-screen pb-20 px-4 overflow-y-auto">
+      <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-4">Browse</h1>
         <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
       </div>

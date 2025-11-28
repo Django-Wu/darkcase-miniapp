@@ -23,7 +23,7 @@ const App: React.FC = () => {
   
   return (
     <Router>
-      <div className="min-h-screen bg-netflix-black text-white overflow-hidden">
+      <div className="h-screen bg-netflix-black text-white overflow-hidden">
         <Routes>
           <Route path="/onboarding" element={<Onboarding />} />
           <Route

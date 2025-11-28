@@ -16,8 +16,8 @@ export const Profile: React.FC = () => {
   }
   
   return (
-    <div className="pb-20 px-4">
-      <div className="pt-6 mb-8">
+    <div className="h-screen pb-20 px-4 overflow-y-auto">
+      <div className="mb-8">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-20 h-20 rounded-full bg-netflix-red flex items-center justify-center text-3xl text-white">
             {currentUser?.name?.[0]?.toUpperCase() || 'U'}

@@ -18,8 +18,8 @@ export const Settings: React.FC = () => {
   }
   
   return (
-    <div className="pb-20 px-4">
-      <div className="pt-6 mb-6">
+    <div className="h-screen pb-20 px-4 overflow-y-auto">
+      <div className="mb-6">
         <div className="flex items-center gap-4 mb-6">
           <button
             onClick={() => navigate(-1)}

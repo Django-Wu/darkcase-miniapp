@@ -26,8 +26,8 @@ export const Search: React.FC = () => {
   }
   
   return (
-    <div className="pb-20 px-4">
-      <div className="mb-6 pt-4">
+    <div className="h-screen pb-20 px-4 overflow-y-auto">
+      <div className="mb-6">
         <Input
           type="text"
           placeholder="Search movies, series, genres..."

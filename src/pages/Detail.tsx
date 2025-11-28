@@ -26,7 +26,7 @@ export const Detail: React.FC = () => {
   const similarMovies = mockMovies.filter((m) => m.id !== movie.id).slice(0, 6)
   
   return (
-    <div className="pb-20">
+    <div className="h-screen pb-20 overflow-y-auto">
       {/* Hero Section */}
       <div className="relative h-96">
         <div

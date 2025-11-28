@@ -24,7 +24,7 @@ export const Onboarding: React.FC = () => {
   }
   
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-netflix-black px-4 safe-area">
+    <div className="h-screen flex flex-col items-center justify-center bg-netflix-black px-4 overflow-y-auto">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-netflix-red mb-2">DarkCase</h1>

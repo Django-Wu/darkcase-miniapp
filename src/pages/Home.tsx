@@ -15,7 +15,7 @@ export const Home: React.FC = () => {
   }
   
   return (
-    <div className="pb-20">
+    <div className="h-screen pb-20 overflow-y-auto">
       {/* Hero Section */}
       <div className="relative h-96 mb-6">
         <div

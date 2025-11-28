@@ -5,7 +5,7 @@ export const useTelegramWebApp = () => {
     if (window.Telegram?.WebApp) {
       const tg = window.Telegram.WebApp
       
-      // Ensure WebApp is ready
+      // Ensure WebApp is ready and expanded
       tg.ready()
       tg.expand()
       
@@ -13,11 +13,23 @@ export const useTelegramWebApp = () => {
       tg.setBackgroundColor('#000000')
       tg.setHeaderColor('secondary_bg_color')
       
-      // Prevent page scrolling
-      document.body.style.overflow = 'hidden'
+      // Set vertical padding to 0 for fullscreen
+      if (tg.setVerticalPadding) {
+        tg.setVerticalPadding(0)
+      }
       
-      return () => {
-        document.body.style.overflow = ''
+      // Prevent body from scrolling (but allow inner containers)
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+      
+      // Handle viewport changes
+      if (tg.onEvent) {
+        tg.onEvent('viewportChanged', () => {
+          tg.expand()
+          if (tg.setVerticalPadding) {
+            tg.setVerticalPadding(0)
+          }
+        })
       }
     }
   }, [])

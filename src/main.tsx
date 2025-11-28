@@ -32,11 +32,11 @@ declare global {
   }
 }
 
-// Initialize Telegram WebApp
+// Initialize Telegram WebApp immediately
 if (window.Telegram?.WebApp) {
   const tg = window.Telegram.WebApp
   
-  // Initialize WebApp
+  // Initialize WebApp - call immediately
   tg.ready()
   tg.expand()
   
@@ -44,30 +44,32 @@ if (window.Telegram?.WebApp) {
   tg.setBackgroundColor('#000000')
   tg.setHeaderColor('secondary_bg_color')
   
-  // Enable closing confirmation
-  if (tg.enableClosingConfirmation) {
-    tg.enableClosingConfirmation()
-  }
-  
-  // Set viewport settings
+  // Set viewport settings - remove padding
   if (tg.setVerticalPadding) {
     tg.setVerticalPadding(0)
   }
+  
+  // Prevent body scrolling
+  document.body.style.overflow = 'hidden'
+  document.documentElement.style.overflow = 'hidden'
   
   // Listen to theme changes
   if (tg.onEvent) {
     const updateTheme = () => {
       const isDark = tg.colorScheme === 'dark'
       document.documentElement.classList.toggle('dark', isDark)
-      document.documentElement.style.backgroundColor = isDark ? '#000000' : '#FFFFFF'
+      document.documentElement.style.backgroundColor = '#000000'
     }
     
     updateTheme()
     tg.onEvent('themeChanged', updateTheme)
     
-    // Handle viewport changes
+    // Handle viewport changes - always expand
     tg.onEvent('viewportChanged', () => {
       tg.expand()
+      if (tg.setVerticalPadding) {
+        tg.setVerticalPadding(0)
+      }
     })
   }
 }
