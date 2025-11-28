@@ -18,11 +18,18 @@ export const useTelegramWebApp = () => {
         tg.setVerticalPadding(0)
       }
       
+      // Prevent swipe-down to close
+      if (tg.enableClosingConfirmation) {
+        tg.enableClosingConfirmation()
+      }
+      
       // Prevent body from scrolling (but allow inner containers)
       document.body.style.overflow = 'hidden'
       document.documentElement.style.overflow = 'hidden'
+      document.body.style.overscrollBehavior = 'none'
+      document.documentElement.style.overscrollBehavior = 'none'
       
-      // Handle viewport changes
+      // Handle viewport changes - always re-expand
       if (tg.onEvent) {
         tg.onEvent('viewportChanged', () => {
           tg.expand()
@@ -30,6 +37,28 @@ export const useTelegramWebApp = () => {
             tg.setVerticalPadding(0)
           }
         })
+        
+        // Re-expand if collapsed
+        tg.onEvent('expand', () => {
+          tg.expand()
+          if (tg.setVerticalPadding) {
+            tg.setVerticalPadding(0)
+          }
+        })
+      }
+      
+      // Force expand on resize
+      const handleResize = () => {
+        tg.expand()
+        if (tg.setVerticalPadding) {
+          tg.setVerticalPadding(0)
+        }
+      }
+      
+      window.addEventListener('resize', handleResize)
+      
+      return () => {
+        window.removeEventListener('resize', handleResize)
       }
     }
   }, [])

@@ -20,14 +20,33 @@
       }
     </style>
     <script>
-      // Initialize Telegram WebApp immediately
+      // Initialize Telegram WebApp immediately for fullscreen
       if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
-        window.Telegram.WebApp.setBackgroundColor('#000000');
-        window.Telegram.WebApp.setHeaderColor('secondary_bg_color');
-        if (window.Telegram.WebApp.setVerticalPadding) {
-          window.Telegram.WebApp.setVerticalPadding(0);
+        const tg = window.Telegram.WebApp;
+        
+        // Critical: ready() must be called first
+        tg.ready();
+        
+        // Expand to fullscreen immediately
+        tg.expand();
+        
+        // Set background color
+        tg.setBackgroundColor('#000000');
+        tg.setHeaderColor('secondary_bg_color');
+        
+        // Remove all padding for true fullscreen
+        if (tg.setVerticalPadding) {
+          tg.setVerticalPadding(0);
+        }
+        
+        // Prevent swipe-down to close (only close button works)
+        if (tg.enableClosingConfirmation) {
+          tg.enableClosingConfirmation();
+        }
+        
+        // Disable vertical swipes that might collapse the app
+        if (tg.isExpanded !== undefined && !tg.isExpanded) {
+          tg.expand();
         }
       }
     </script>
