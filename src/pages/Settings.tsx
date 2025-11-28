@@ -1,21 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ProfileSection } from '../components/ui/ProfileSection'
 import { SettingRow } from '../components/ui/SettingRow'
-import { Input } from '../components/ui/Input'
-import { Button } from '../components/ui/Button'
 import { useAppStore } from '../store/useAppStore'
 
 export const Settings: React.FC = () => {
   const navigate = useNavigate()
-  const { currentUser, setUser } = useAppStore()
-  const [name, setName] = useState(currentUser?.name || '')
-  const [email, setEmail] = useState(currentUser?.email || '')
+  const { currentUser } = useAppStore()
   
-  const handleSave = () => {
-    setUser({ name, email })
-    navigate('/profile')
-  }
+  const displayName = currentUser
+    ? `${currentUser.firstName}${currentUser.lastName ? ` ${currentUser.lastName}` : ''}`
+    : 'Пользователь'
   
   return (
     <div className="h-screen pb-20 px-4 overflow-y-auto">
@@ -27,85 +22,105 @@ export const Settings: React.FC = () => {
           >
             ←
           </button>
-          <h1 className="text-2xl font-bold text-white">Settings</h1>
+          <h1 className="text-2xl font-bold text-white">Настройки</h1>
         </div>
       </div>
       
-      <ProfileSection title="Profile">
-        <div className="space-y-4">
-          <Input
-            label="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+      <ProfileSection title="Аккаунт">
+        <div className="space-y-2">
+          <SettingRow
+            title="Имя"
+            subtitle={displayName}
+            icon="👤"
+            onClick={() => {}}
+            rightElement={<span className="text-netflix-lightGray text-sm">{displayName}</span>}
           />
-          <Input
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+          <SettingRow
+            title="Имя пользователя"
+            subtitle={currentUser?.username ? `@${currentUser.username}` : 'Не установлено'}
+            icon="📝"
+            onClick={() => {}}
+            rightElement={
+              <span className="text-netflix-lightGray text-sm">
+                {currentUser?.username ? `@${currentUser.username}` : '—'}
+              </span>
+            }
           />
-          <Button onClick={handleSave} fullWidth>
-            Save Changes
-          </Button>
+          <SettingRow
+            title="Telegram ID"
+            subtitle={`${currentUser?.id || 'N/A'}`}
+            icon="🆔"
+            onClick={() => {}}
+            rightElement={<span className="text-netflix-lightGray text-sm">{currentUser?.id || '—'}</span>}
+          />
+          {currentUser?.isPremium && (
+            <SettingRow
+              title="Премиум статус"
+              subtitle="Активен"
+              icon="⭐"
+              onClick={() => {}}
+              rightElement={<span className="text-yellow-500 text-sm font-semibold">Активен</span>}
+            />
+          )}
         </div>
       </ProfileSection>
       
-      <ProfileSection title="Playback">
+      <ProfileSection title="Воспроизведение">
         <div className="space-y-2">
           <SettingRow
-            title="Video Quality"
-            subtitle="Auto"
+            title="Качество видео"
+            subtitle="Авто"
             icon="📺"
             onClick={() => {}}
-            rightElement={<span className="text-netflix-lightGray">Auto</span>}
+            rightElement={<span className="text-netflix-lightGray">Авто</span>}
           />
           <SettingRow
-            title="Download Quality"
-            subtitle="Standard"
+            title="Качество загрузки"
+            subtitle="Стандарт"
             icon="⬇"
             onClick={() => {}}
-            rightElement={<span className="text-netflix-lightGray">Standard</span>}
+            rightElement={<span className="text-netflix-lightGray">Стандарт</span>}
           />
         </div>
       </ProfileSection>
       
-      <ProfileSection title="Appearance">
+      <ProfileSection title="Внешний вид">
         <div className="space-y-2">
           <SettingRow
-            title="Theme"
-            subtitle="Dark"
+            title="Тема"
+            subtitle="Тёмная"
             icon="🌙"
             onClick={() => {}}
-            rightElement={<span className="text-netflix-lightGray">Dark</span>}
+            rightElement={<span className="text-netflix-lightGray">Тёмная</span>}
           />
           <SettingRow
-            title="Language"
-            subtitle="English"
+            title="Язык"
+            subtitle="Русский"
             icon="🌐"
             onClick={() => {}}
-            rightElement={<span className="text-netflix-lightGray">English</span>}
+            rightElement={<span className="text-netflix-lightGray">Русский</span>}
           />
         </div>
       </ProfileSection>
       
-      <ProfileSection title="Privacy">
+      <ProfileSection title="Конфиденциальность">
         <div className="space-y-2">
           <SettingRow
-            title="Watch History"
-            subtitle="Enabled"
+            title="История просмотров"
+            subtitle="Включена"
             icon="🕐"
             onClick={() => {}}
             rightElement={
               <input
                 type="checkbox"
                 defaultChecked
-                className="w-5 h-5 rounded bg-netflix-darkGray border-netflix-mediumGray"
+                className="w-5 h-5 rounded bg-darkcase-darkGray border-darkcase-mediumGray"
               />
             }
           />
           <SettingRow
-            title="Data Usage"
-            subtitle="Manage your data"
+            title="Использование данных"
+            subtitle="Управление данными"
             icon="📊"
             onClick={() => {}}
           />

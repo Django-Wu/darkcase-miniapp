@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" style="background-color: #000000;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Офлайн - DarkCase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #000000;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      text-align: center;
+      max-width: 400px;
+    }
+    
+    .icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #DC143C;
+    }
+    
+    p {
+      font-size: 16px;
+      color: #aaaaaa;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #DC143C;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    
+    .button:hover {
+      background: #B01030;
+    }
+    
+    .button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📡</div>
+    <h1>Нет подключения к интернету</h1>
+    <p>Похоже, вы находитесь в офлайн режиме. Проверьте подключение к интернету и попробуйте снова.</p>
+    <a href="/" class="button">Попробовать снова</a>
+  </div>
+  
+  <script>
+    // Проверяем подключение и перезагружаем при восстановлении
+    window.addEventListener('online', () => {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>
+

@@ -5,12 +5,12 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string
 }
 
-export const Input: React.FC<InputProps> = ({
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   label,
   error,
   className = '',
   ...props
-}) => {
+}, ref) => {
   return (
     <div className="w-full">
       {label && (
@@ -19,13 +19,16 @@ export const Input: React.FC<InputProps> = ({
         </label>
       )}
       <input
-        className={`w-full px-4 py-3 bg-netflix-darkGray text-white rounded-lg border border-netflix-mediumGray focus:outline-none focus:border-netflix-red transition-colors ${className}`}
+        ref={ref}
+        className={`w-full px-4 py-3 bg-darkcase-darkGray/50 backdrop-blur-sm text-white rounded-lg border border-darkcase-mediumGray/50 focus:outline-none focus:border-darkcase-crimson focus:ring-2 focus:ring-darkcase-crimson/20 transition-all ${className}`}
         {...props}
       />
       {error && (
-        <p className="mt-1 text-sm text-netflix-red">{error}</p>
+        <p className="mt-1 text-sm text-darkcase-crimson">{error}</p>
       )}
     </div>
   )
-}
+})
+
+Input.displayName = 'Input'
 

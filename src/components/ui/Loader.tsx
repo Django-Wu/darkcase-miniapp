@@ -15,14 +15,14 @@ export const Loader: React.FC<LoaderProps> = ({ size = 'md', fullScreen = false 
   const content = (
     <div className="flex items-center justify-center">
       <div
-        className={`${sizes[size]} border-4 border-netflix-darkGray border-t-netflix-red rounded-full animate-spin`}
+        className={`${sizes[size]} border-4 border-darkcase-darkGray border-t-darkcase-crimson rounded-full animate-spin shadow-blood`}
       />
     </div>
   )
   
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-netflix-black z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-darkcase-black z-50">
         {content}
       </div>
     )

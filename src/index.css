@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,21 +11,56 @@
 }
 
 html,
-body,
-#root {
+body {
   height: 100vh;
   width: 100%;
-  overflow: hidden;
-  background-color: #000;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: fixed;
-  top: 0;
-  left: 0;
+  background: #000000;
+}
+
+#root {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000000;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(220, 20, 60, 0.03) 0%, transparent 50%),
+    linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+  margin: 0;
+  padding: 0;
+  position: relative;
   right: 0;
   bottom: 0;
+}
+
+/* SafeArea - глобальный верхний отступ для всего приложения */
+.safe-area-container {
+  /* Используем max() для выбора большего значения между 32px и safe-area-inset-top */
+  /* Если safe-area-inset-top недоступен, используем 32px как fallback */
+  padding-top: max(32px, env(safe-area-inset-top, 32px));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Для веб-браузеров без поддержки env() - fallback на 32px */
+@supports not (padding-top: env(safe-area-inset-top)) {
+  .safe-area-container {
+    padding-top: 32px;
+  }
+}
+
+/* Для устройств с поддержкой safe-area-inset-top (iOS, Telegram Mini App) */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .safe-area-container {
+    /* Используем большее значение: минимум 32px, но если safe-area больше - используем его */
+    padding-top: max(32px, env(safe-area-inset-top));
+  }
 }
 
 body {
@@ -42,6 +79,163 @@ body {
   user-select: none;
 }
 
+/* Dark Case specific styles */
+@layer components {
+  /* Text effects */
+  .text-glow {
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+  }
+  
+  .text-glow-strong {
+    text-shadow: 0 0 20px rgba(220, 20, 60, 0.8);
+  }
+  
+  /* Card effects */
+  .card-case {
+    @apply relative overflow-hidden rounded-lg;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(42, 42, 42, 0.7) 100%);
+    border: 1px solid rgba(220, 20, 60, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .card-case:hover {
+    border-color: rgba(220, 20, 60, 0.3);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .card-case::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.05) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .card-case:hover::before {
+    opacity: 1;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary:hover {
+    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.5);
+    transform: translateY(-1px);
+  }
+  
+  /* Status badges */
+  .badge-solved {
+    @apply px-2 py-1 rounded text-xs font-semibold;
+    background: rgba(0, 170, 68, 0.2);
+    color: #00FF6B;
+    border: 1px solid rgba(0, 170, 68, 0.3);
+  }
+  
+  .badge-unsolved {
+    @apply px-2 py-1 rounded text-xs font-semibold;
+    background: rgba(220, 20, 60, 0.2);
+    color: #FF4D6D;
+    border: 1px solid rgba(220, 20, 60, 0.3);
+  }
+  
+  .badge-cold {
+    @apply px-2 py-1 rounded text-xs font-semibold;
+    background: rgba(107, 114, 128, 0.2);
+    color: #9CA3AF;
+    border: 1px solid rgba(107, 114, 128, 0.3);
+  }
+  
+  /* Navigation */
+  .nav-item {
+    @apply relative flex flex-col items-center justify-center;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #DC143C, #8B0000);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-item.active::after {
+    width: 60%;
+  }
+  
+  /* Hero section */
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+  }
+  
+  /* Timeline */
+  .timeline-line {
+    position: relative;
+  }
+  
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #DC143C, rgba(220, 20, 60, 0.3));
+  }
+  
+  /* Scrollbar styling (for desktop) */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(26, 26, 26, 0.5);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #DC143C, #8B0000);
+    border-radius: 2px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #FF1744, #DC143C);
+  }
+}
+
 .safe-area {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
@@ -53,18 +247,129 @@ body {
   padding-bottom: calc(1rem + env(safe-area-inset-bottom));
 }
 
-/* Hide scrollbars but keep functionality */
-::-webkit-scrollbar {
-  display: none;
-}
-
-* {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Hide scrollbars but keep functionality on mobile */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 /* Smooth scrolling */
 * {
   scroll-behavior: smooth;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glitch effect for special elements */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.glitch {
+  animation: glitch 0.3s infinite;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Page transition animations */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.3s ease-out;
+}
+
+/* Image optimization styles */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Lazy loading placeholder */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 

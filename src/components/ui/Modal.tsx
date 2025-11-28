@@ -41,11 +41,11 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={onClose}
     >
       <div
-        className={`${sizes[size]} w-full bg-netflix-darkGray rounded-lg shadow-2xl overflow-hidden`}
+        className={`${sizes[size]} w-full bg-darkcase-darkGray rounded-lg shadow-2xl overflow-hidden`}
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
-          <div className="flex items-center justify-between p-4 border-b border-netflix-mediumGray">
+          <div className="flex items-center justify-between p-4 border-b border-darkcase-mediumGray">
             <h2 className="text-xl font-bold text-white">{title}</h2>
             <button
               onClick={onClose}
